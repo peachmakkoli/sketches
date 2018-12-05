@@ -27,7 +27,7 @@ const sketch = ({ context }) => {
 
   // Setup a camera
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100);
-  camera.position.set(0, 20, 10);
+  camera.position.set(0, 19, 10);
   camera.lookAt(new THREE.Vector3());
 
   // Setup camera controller
@@ -40,19 +40,28 @@ const sketch = ({ context }) => {
     new THREE.TorusKnotGeometry(10, 3, 100, 16),
     new THREE.MeshPhysicalMaterial({
       color: 'white',
-      roughness: .75,
-      flatShading: true
+      roughness: .6,
+      flatShading: false
     })
   );
-  scene.add(mesh);
+  
+  const mesh2 = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 32, 32),
+    new THREE.MeshPhysicalMaterial({
+      color: 'black',
+      roughness: .75,
+      flatShading: false
+    })
+  );
+  
+  scene.add( mesh, mesh2 );
 
   // Specify an ambient/unlit colour
   scene.add(new THREE.AmbientLight('#00e6e6'));
 
   // Add some light
-  const light = new THREE.PointLight('#45caf7', 1, 15.5);
-  light.position.set(2, 2, -4).multiplyScalar(1.5);
-
+  const light = new THREE.PointLight( 0xffffff, 1.5, 10 );
+ 
   const light2 = new THREE.HemisphereLight( 0xff00ff, 0x00ffff, 1);
  
   scene.add( light, light2 );
@@ -85,6 +94,9 @@ const sketch = ({ context }) => {
       mesh.rotation.x = time * (3 * Math.PI / 180);
 	  mesh.rotation.y = time * (3 * Math.PI / 180);
   	  mesh.rotation.z = time * (3 * Math.PI / 180);
+	  mesh2.rotation.x = time * (10 * Math.PI / 180);
+	  mesh2.rotation.y = time * (10 * Math.PI / 180);
+  	  mesh2.rotation.z = time * (10 * Math.PI / 180);
       controls.update();
       renderer.render(scene, camera);
     },
