@@ -23,6 +23,18 @@ const sketch = ({ context }) => {
 
   // WebGL background color
   renderer.setClearColor('#000', 1);
+  
+  // Textures
+  const spriteMap = new THREE.TextureLoader().load( '../sketches/textures/star/glow.png' );
+  
+  const spriteMaterial = new THREE.SpriteMaterial({ 
+	  map: spriteMap, 
+	  color: 0xffffe0,
+      transparent: true,
+      blending: THREE.AdditiveBlending	  
+  });
+	const sprite = new THREE.Sprite( spriteMaterial );
+	sprite.scale.set(10, 10, 1.0);
 
   // Setup a camera
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100);
@@ -70,9 +82,17 @@ const sketch = ({ context }) => {
       flatShading: true
     })
   );
-  
-  scene.add(mesh, mesh2, mesh3, mesh4);
 
+  mesh2.rotation.y = Math.PI / 4;	
+  mesh3.rotation.z = Math.PI / 4;
+  mesh4.rotation.x = Math.PI / 4;
+  
+  const group = new THREE.Group()
+  
+  group.add(mesh, mesh2, mesh3, mesh4, sprite);
+   
+  scene.add(group)
+	
   // Specify an ambient/unlit colour
   scene.add(new THREE.AmbientLight('hsl(0, 0%, 100%)'));
 
@@ -93,9 +113,7 @@ const sketch = ({ context }) => {
     // Update & render your scene here
     render ({ time }) {
 	  
- 	  mesh2.rotation.y = Math.PI / 4;	
-	  mesh3.rotation.z = Math.PI / 4;
-	  mesh4.rotation.x = Math.PI / 4;
+	  group.rotation.x = time * (10 * Math.PI / 180)
 	  
       controls.update();
       renderer.render(scene, camera);

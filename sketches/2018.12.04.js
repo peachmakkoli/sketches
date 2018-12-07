@@ -30,7 +30,6 @@ const sketch = ({ context }) => {
     texture.wrapT = THREE.RepeatWrapping;
 	texture.repeat.set ( 4, 4 );
   const texture2 = new THREE.TextureLoader().load( "../sketches/textures/sky/night.png" );
-
   
   // Setup a camera
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 550);
