@@ -24,7 +24,7 @@ const sketch = ({ context }) => {
   // WebGL background color
   renderer.setClearColor('#000', 1);
 
-    // load a texture, set wrap mode to repeat
+  // load a texture
   const texture = new THREE.TextureLoader().load( "../sketches/textures/blackhole/space.jpg" );
   
   // Setup a camera
