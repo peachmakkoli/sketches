@@ -43,32 +43,22 @@ const sketch = ({ context }) => {
     new THREE.MeshPhysicalMaterial({
       map: texture,
 	  color: 'white',
-      roughness: 0.75,
-      flatShading: false
-    })
-  );
-
-  const mesh2 = new THREE.Mesh(
-    new THREE.SphereGeometry(2, 32, 32),
-    new THREE.MeshPhysicalMaterial({
-      map: texture,
-	  color: 'white',
-      roughness: 0.75,
-      flatShading: false
-    })
-  );
-  
-  const mesh3 = new THREE.Mesh(
-    new THREE.SphereGeometry(.70, 64, 64),
-    new THREE.MeshPhysicalMaterial({
-	  color: 'black',
       roughness: 1,
       flatShading: false
     })
   );
-  mesh3.position.set(0, 0, 5)
+  
+  const mesh2 = new THREE.Mesh(
+    new THREE.SphereGeometry(.70, 64, 64),
+    new THREE.MeshPhysicalMaterial({
+	  color: 'black',
+      roughness: .75,
+      flatShading: false
+    })
+  );
+  mesh2.position.set(0, 0, 5)
 
-  const mesh4 = new THREE.Mesh(
+  const mesh3 = new THREE.Mesh(
     new THREE.PlaneGeometry(120, 60, 32),
     new THREE.MeshPhysicalMaterial({
 	  map: texture,
@@ -77,45 +67,37 @@ const sketch = ({ context }) => {
       flatShading: false
     })
   );
-  mesh4.position.set(0, 0, -50)
+  mesh3.position.set(0, 0, -50)
   
-  const mesh5 = new THREE.Mesh(
+  const mesh4 = new THREE.Mesh(
     new THREE.SphereGeometry(3.75, 32, 32),
     new THREE.MeshPhysicalMaterial({
       map: texture,
 	  color: 'white',
-      roughness: 0.75,
+      roughness: 1,
       flatShading: false
     })
   );
-  mesh5.position.set(0, 0, -10)
-  
-  const mesh6 = new THREE.Mesh(
-    new THREE.SphereGeometry(3.75, 32, 32),
-    new THREE.MeshPhysicalMaterial({
-      map: texture,
-	  color: 'white',
-      roughness: 0.75,
-      flatShading: false
-    })
-  );
-  mesh6.position.set(0, 0, -10)
+  mesh4.position.set(0, 0, -10)
 
-  scene.add( mesh, mesh3, mesh4, mesh6 );
+  scene.add( mesh, mesh2, mesh3, mesh4 );
 
   // Specify an ambient/unlit colour
   scene.add(new THREE.AmbientLight('#ffffff'));
 
   // Add some light
-  const light = new THREE.PointLight('#45caf7', 1, 15.5);
+  const light = new THREE.PointLight('#45caf7', 5, 30);
   light.position.set(2, 2, -4).multiplyScalar(1.5);
   
   const light2 = new THREE.HemisphereLight( 0xffffff, 0xffffff, 1 );
+ 
+  const light3 = new THREE.PointLight('#45caf7', 5, 30);
+  light3.position.set(-2, -2, -4).multiplyScalar(1.5);
   
-  const light3 = new THREE.PointLight('#45caf7', 1, 15.5);
-  light.position.set(2, 2, -4).multiplyScalar(1.5);
+  const group = new THREE.Group()
+  group.add( light, light3 )
   
-  scene.add( light, light2 );
+  scene.add( group, light2 );
 
   // draw each frame
   return {
@@ -128,10 +110,9 @@ const sketch = ({ context }) => {
     },
     // Update & render your scene here
     render ({ time }) {
-      mesh.rotation.z = time * (15 * Math.PI / 180);
-      mesh2.rotation.y = time * (10 * Math.PI / 180);
-      mesh5.rotation.y = time * (10 * Math.PI / 180);
-      mesh6.rotation.z = time * (10 * Math.PI / 180);
+      mesh.rotation.z = time * (20 * Math.PI / 180);
+	  mesh4.rotation.z = time * (10 * Math.PI / 180);
+	  group.rotation.z = time * (25 * Math.PI / 180);
       controls.update();
       renderer.render(scene, camera);
     },
