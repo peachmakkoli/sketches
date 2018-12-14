@@ -101,7 +101,7 @@ const sketch = ({ context }) => {
   );
   mesh6.position.set(0, 0, -10)
 
-  scene.add( mesh, mesh2, mesh3, mesh4, mesh5, mesh6 );
+  scene.add( mesh, mesh3, mesh4, mesh6 );
 
   // Specify an ambient/unlit colour
   scene.add(new THREE.AmbientLight('#ffffff'));
@@ -128,7 +128,7 @@ const sketch = ({ context }) => {
     },
     // Update & render your scene here
     render ({ time }) {
-      mesh.rotation.z = time * (10 * Math.PI / 180);
+      mesh.rotation.z = time * (15 * Math.PI / 180);
       mesh2.rotation.y = time * (10 * Math.PI / 180);
       mesh5.rotation.y = time * (10 * Math.PI / 180);
       mesh6.rotation.z = time * (10 * Math.PI / 180);
